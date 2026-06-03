@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Renascer — Hub de Ferramentas</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  
   <style>
     /* Reset básico */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      /* Cores Globais e Fundo */
       --bg-page: #f0f7f4;
       --bg-card: #ffffff;
       --bg-card-hover: #f9fdfb;
@@ -20,12 +22,29 @@
       --text-secondary: #787870;
       --text-muted: #aaaaaa;
       --text-label: #888880;
+      
+      /* Cores de Setores - Claro */
       --icon-blue-bg: #e8f1fd;
-      --icon-green-bg: #e0f5ec;
       --tag-blue-bg: #deeafa;
       --tag-blue-text: #1851a0;
+      --stroke-blue: #378ADD;
+      
+      --icon-green-bg: #e0f5ec;
       --tag-green-bg: #d8f2e8;
       --tag-green-text: #0d6649;
+      --stroke-green: #1d9e75;
+
+      --icon-pink-bg: #fdedf3;
+      --tag-pink-bg: #fce4ec;
+      --tag-pink-text: #b03060;
+      --stroke-pink: #d4517a;
+
+      --icon-orange-bg: #fef3e6;
+      --tag-orange-bg: #fce8d5;
+      --tag-orange-text: #b35c00;
+      --stroke-orange: #e67e22;
+
+      /* UI Controls */
       --toggle-bg: #cde0d9;
       --toggle-knob: #ffffff;
     }
@@ -41,12 +60,25 @@
       --text-secondary: #8a8a82;
       --text-muted: #555550;
       --text-label: #666660;
+      
+      /* Cores de Setores - Escuro */
       --icon-blue-bg: #1a2a40;
-      --icon-green-bg: #0e2a1e;
       --tag-blue-bg: #162238;
       --tag-blue-text: #7cb4f0;
+      
+      --icon-green-bg: #0e2a1e;
       --tag-green-bg: #0c2218;
       --tag-green-text: #5ecfa0;
+
+      --icon-pink-bg: #2a121b;
+      --tag-pink-bg: #3d1827;
+      --tag-pink-text: #e87ba3;
+
+      --icon-orange-bg: #2c1c11;
+      --tag-orange-bg: #3d2615;
+      --tag-orange-text: #f39c12;
+
+      /* UI Controls */
       --toggle-bg: #3a3a36;
       --toggle-knob: #f0f0ec;
     }
@@ -56,7 +88,7 @@
       background: var(--bg-page);
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       padding: 2rem 1rem;
       transition: background 0.35s;
@@ -64,7 +96,7 @@
       overflow-x: hidden;
     }
 
-    /* Efeito de Gradiente no fundo */
+    /* Efeito de Gradiente no fundo atualizado com toques de laranja e rosa */
     body::before {
       content: '';
       position: fixed;
@@ -72,22 +104,22 @@
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(44,181,110,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(44,181,110,0.10) 0%, transparent 70%),
         radial-gradient(ellipse 50% 45% at 85% 75%, rgba(55,138,221,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 35% at 70% 10%, rgba(44,181,110,0.06) 0%, transparent 60%);
+        radial-gradient(ellipse 40% 35% at 70% 10%, rgba(230,126,34,0.06) 0%, transparent 60%);
       transition: opacity 0.35s;
     }
 
     body.dark::before {
       background:
-        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(44,181,110,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(44,181,110,0.06) 0%, transparent 70%),
         radial-gradient(ellipse 50% 45% at 85% 75%, rgba(55,138,221,0.05) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 35% at 70% 10%, rgba(44,181,110,0.04) 0%, transparent 60%);
+        radial-gradient(ellipse 40% 35% at 70% 10%, rgba(230,126,34,0.04) 0%, transparent 60%);
     }
 
     .page {
       width: 100%;
-      max-width: 580px;
+      max-width: 620px;
       position: relative;
       z-index: 1;
     }
@@ -98,7 +130,6 @@
       margin-bottom: 1.5rem;
     }
 
-    /* Botão Toggle Dark Mode */
     .toggle-btn {
       display: flex;
       align-items: center;
@@ -139,7 +170,6 @@
     body.dark .toggle-track { background: #2cb56e; }
     body.dark .toggle-knob { transform: translateX(12px); }
 
-    /* Cabeçalho e Logo */
     .header {
       display: flex;
       align-items: center;
@@ -151,7 +181,6 @@
       width: auto;
       display: block;
       transition: opacity 0.3s;
-      /* Correção para contornos e transparência */
       border: none;
       outline: none;
       background: transparent;
@@ -163,42 +192,45 @@
     body.dark .logo-light { display: none; }
     body.dark .logo-dark  { display: block; }
 
-    /* Seções */
     .section { margin-bottom: 2rem; }
 
     .section-label {
       display: flex; align-items: center; gap: 8px;
       font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--text-label); margin-bottom: 10px;
+      text-transform: uppercase; color: var(--text-label); margin-bottom: 12px;
     }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border-divider); }
 
-    .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-    /* Grid de Cards */
-    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (max-width: 420px) { .cards { grid-template-columns: 1fr; } }
+    /* Responsividade Aprimorada no Grid */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    @media (max-width: 480px) { .cards { grid-template-columns: 1fr; } }
 
     .card {
       background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.1rem 1.2rem;
-      text-decoration: none; display: flex; flex-direction: column; gap: 6px;
+      border-radius: 14px; padding: 1.2rem;
+      text-decoration: none; display: flex; flex-direction: column; gap: 8px;
       position: relative; overflow: hidden;
       transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s, background 0.25s;
     }
     .card:hover {
       border-color: var(--border-hover); background: var(--bg-card-hover);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.10); transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06); transform: translateY(-2px);
     }
     .card:hover .arrow { opacity: 1; transform: translate(2px, -2px); }
 
     .card-icon {
-      width: 36px; height: 36px; border-radius: 10px;
+      width: 38px; height: 38px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center; margin-bottom: 4px;
       transition: background 0.25s;
     }
+    
+    /* Variações de Cores das Seções */
     .icon-blue { background: var(--icon-blue-bg); }
     .icon-green { background: var(--icon-green-bg); }
+    .icon-pink { background: var(--icon-pink-bg); }
+    .icon-orange { background: var(--icon-orange-bg); }
 
     .card-name {
       font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
@@ -208,21 +240,24 @@
 
     .card-tag {
       display: inline-flex; align-items: center;
-      font-size: 10px; font-weight: 600; padding: 3px 9px;
+      font-size: 10px; font-weight: 600; padding: 4px 10px;
       border-radius: 20px; width: fit-content; margin-top: 4px; letter-spacing: 0.03em;
       transition: background 0.25s, color 0.25s;
     }
+    
     .tag-blue { background: var(--tag-blue-bg); color: var(--tag-blue-text); }
     .tag-green { background: var(--tag-green-bg); color: var(--tag-green-text); }
+    .tag-pink { background: var(--tag-pink-bg); color: var(--tag-pink-text); }
+    .tag-orange { background: var(--tag-orange-bg); color: var(--tag-orange-text); }
 
     .arrow {
-      position: absolute; top: 12px; right: 14px; font-size: 14px;
+      position: absolute; top: 16px; right: 16px; font-size: 14px;
       color: var(--text-muted); opacity: 0; transition: opacity 0.15s, transform 0.15s;
     }
 
     .footer {
       text-align: center; font-size: 12px; color: var(--text-muted);
-      margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--border-divider);
+      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border-divider);
       transition: color 0.25s, border-color 0.25s;
     }
   </style>
@@ -240,14 +275,15 @@
 
     <!-- Header com Logos Dinâmicas -->
     <div class="header">
-      <img class="logo-img logo-light" src="assets/img/img_azul_piscina.png" alt="Renascer Homecare" />
-      <img class="logo-img logo-dark"  src="assets/img/img_branca.png" alt="Renascer Homecare" />
+      <!-- Imagens originais restabelecidas, com fallbacks caso não carreguem -->
+      <img class="logo-img logo-light" src="assets/img/img_azul_piscina.png" onerror="this.src='https://placehold.co/200x52/transparent/378ADD?text=Renascer+Homecare'" alt="Renascer Homecare" />
+      <img class="logo-img logo-dark"  src="assets/img/img_branca.png" onerror="this.src='https://placehold.co/200x52/transparent/FFFFFF?text=Renascer+Homecare'" alt="Renascer Homecare" />
     </div>
 
     <!-- Seção Auditoria -->
     <div class="section">
       <div class="section-label">
-        <span class="dot" style="background:#378ADD;"></span>
+        <span class="dot" style="background:var(--stroke-blue);"></span>
         Auditoria
       </div>
 
@@ -255,9 +291,9 @@
         <a class="card" href="https://suporterhc.github.io/DashboardAuditoria/" target="_blank">
           <span class="arrow">↗</span>
           <div class="card-icon icon-blue">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <rect x="2" y="2" width="14" height="14" rx="3" stroke="#378ADD" stroke-width="1.5"/>
-              <path d="M5 9h8M5 6h8M5 12h5" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <rect x="2" y="2" width="14" height="14" rx="3" stroke="var(--stroke-blue)" stroke-width="1.5"/>
+              <path d="M5 9h8M5 6h8M5 12h5" stroke="var(--stroke-blue)" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
           <p class="card-name">Dashboard Auditoria</p>
@@ -268,9 +304,9 @@
         <a class="card" href="https://suporterhc.github.io/RegrasPlanoServir/" target="_blank">
           <span class="arrow">↗</span>
           <div class="card-icon icon-blue">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <circle cx="9" cy="9" r="6.5" stroke="#378ADD" stroke-width="1.5"/>
-              <path d="M9 5.5v3.5l2.5 2.5" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="6.5" stroke="var(--stroke-blue)" stroke-width="1.5"/>
+              <path d="M9 5.5v3.5l2.5 2.5" stroke="var(--stroke-blue)" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
           <p class="card-name">Servir | Tabela de Mat e Med</p>
@@ -281,11 +317,11 @@
         <a class="card" href="https://script.google.com/a/macros/homecarerenascer.com.br/s/AKfycbwGl22z8nGNfCa4McJMlmovGhtXA_wTGoXQLoq3qbGtX5qRqF6u1Ga_zGT7h1ICxZ3GiA/exec" target="_blank">
           <span class="arrow">↗</span>
           <div class="card-icon icon-blue">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M3 4.5C3 3.67 3.67 3 4.5 3h9C14.33 3 15 3.67 15 4.5v9c0 .83-.67 1.5-1.5 1.5h-9C3.67 15 3 14.33 3 13.5v-9z" stroke="#378ADD" stroke-width="1.5"/>
-              <path d="M6 7h1.5M6 10h1.5M6 13h1.5" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M9.5 7h2.5M9.5 10h2.5M9.5 13h2.5" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M6 5.5C6 5.22 6.22 5 6.5 5h5c.28 0 .5.22.5.5v.5H6v-.5z" fill="#378ADD"/>
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <path d="M3 4.5C3 3.67 3.67 3 4.5 3h9C14.33 3 15 3.67 15 4.5v9c0 .83-.67 1.5-1.5 1.5h-9C3.67 15 3 14.33 3 13.5v-9z" stroke="var(--stroke-blue)" stroke-width="1.5"/>
+              <path d="M6 7h1.5M6 10h1.5M6 13h1.5" stroke="var(--stroke-blue)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9.5 7h2.5M9.5 10h2.5M9.5 13h2.5" stroke="var(--stroke-blue)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M6 5.5C6 5.22 6.22 5 6.5 5h5c.28 0 .5.22.5.5v.5H6v-.5z" fill="var(--stroke-blue)"/>
             </svg>
           </div>
           <p class="card-name">Tabela de Preços UNIMED</p>
@@ -295,59 +331,95 @@
       </div>
     </div>
 
+    <!-- Seção Enfermagem -->
+    <div class="section">
+      <div class="section-label">
+        <span class="dot" style="background:var(--stroke-pink);"></span>
+        Enfermagem
+      </div>
+
+      <div class="cards">
+        <a class="card" href="https://renascer-plantao-547d4.web.app/" target="_blank">
+          <span class="arrow">↗</span>
+          <div class="card-icon icon-pink">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <path d="M9 2.5C9 2.5 4 5.5 4 9.5C4 12.26 6.24 14.5 9 14.5C11.76 14.5 14 12.26 14 9.5C14 5.5 9 2.5 9 2.5Z" stroke="var(--stroke-pink)" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M7 9.5h4M9 7.5v4" stroke="var(--stroke-pink)" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="card-name">Renascer Plantão</p>
+          <p class="card-desc">Sistema centralizado de gestão de plantões</p>
+          <span class="card-tag tag-pink">Enfermagem</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Seção Nutrição -->
+    <div class="section">
+      <div class="section-label">
+        <span class="dot" style="background:var(--stroke-orange);"></span>
+        Nutrição
+      </div>
+
+      <div class="cards">
+        <a class="card" href="https://script.google.com/a/macros/homecarerenascer.com.br/s/AKfycbxlfmzaEZwzG9UtncypFjY366BZMwseXTcb2qkfTe1jzzOJ-NFZHOA5coEwlWALgbB0/exec" target="_blank">
+          <span class="arrow">↗</span>
+          <div class="card-icon icon-orange">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <!-- Ícone estilizado representando nutrição/saúde (maçã minimalista) -->
+              <path d="M9 15.5C12.5 15.5 15 12.5 15 9C15 6 13.5 4 11.5 4C10.5 4 9.5 4.5 9 5.5C8.5 4.5 7.5 4 6.5 4C4.5 4 3 6 3 9C3 12.5 5.5 15.5 9 15.5Z" stroke="var(--stroke-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10.5 2C10.5 2 9.5 2.5 9 4" stroke="var(--stroke-orange)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M12 2C12 2 13 2.5 12.5 4" stroke="var(--stroke-orange)" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="card-name">Dashboard Nutrição</p>
+          <p class="card-desc">Painel de controle e indicadores de nutrição clínica</p>
+          <span class="card-tag tag-orange">Nutrição</span>
+        </a>
+      </div>
+    </div>
+
     <!-- Seção Geral -->
     <div class="section">
       <div class="section-label">
-        <span class="dot" style="background:#1d9e75;"></span>
-        Geral — Todos os setores
+        <span class="dot" style="background:var(--stroke-green);"></span>
+        Geral — Administrativo & Outros
       </div>
 
       <div class="cards">
         <a class="card" href="https://renascer-veiculos.web.app/" target="_blank">
           <span class="arrow">↗</span>
           <div class="card-icon icon-green">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <rect x="2" y="7" width="14" height="7" rx="2" stroke="#1d9e75" stroke-width="1.5"/>
-              <path d="M4 7 L5.5 3.5 L12.5 3.5 L14 7" stroke="#1d9e75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="5.5" cy="14" r="1.5" fill="#1d9e75"/>
-              <circle cx="12.5" cy="14" r="1.5" fill="#1d9e75"/>
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <rect x="2" y="7" width="14" height="7" rx="2" stroke="var(--stroke-green)" stroke-width="1.5"/>
+              <path d="M4 7 L5.5 3.5 L12.5 3.5 L14 7" stroke="var(--stroke-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="5.5" cy="14" r="1.5" fill="var(--stroke-green)"/>
+              <circle cx="12.5" cy="14" r="1.5" fill="var(--stroke-green)"/>
             </svg>
           </div>
           <p class="card-name">Renascer Veículos</p>
-          <p class="card-desc">Sistema principal de gestão de veículos</p>
+          <p class="card-desc">Sistema principal de gestão de frota e veículos</p>
           <span class="card-tag tag-green">Geral</span>
         </a>
 
         <a class="card" href="https://suporterhc.github.io/Fluxos/" target="_blank">
           <span class="arrow">↗</span>
           <div class="card-icon icon-green">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <circle cx="4" cy="4" r="2" stroke="#1d9e75" stroke-width="1.5"/>
-              <circle cx="14" cy="9" r="2" stroke="#1d9e75" stroke-width="1.5"/>
-              <circle cx="4" cy="14" r="2" stroke="#1d9e75" stroke-width="1.5"/>
-              <path d="M6 4.5 L12 8 M12 10 L6 13.5" stroke="#1d9e75" stroke-width="1.5" stroke-linecap="round"/>
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <circle cx="4" cy="4" r="2" stroke="var(--stroke-green)" stroke-width="1.5"/>
+              <circle cx="14" cy="9" r="2" stroke="var(--stroke-green)" stroke-width="1.5"/>
+              <circle cx="4" cy="14" r="2" stroke="var(--stroke-green)" stroke-width="1.5"/>
+              <path d="M6 4.5 L12 8 M12 10 L6 13.5" stroke="var(--stroke-green)" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
-          <p class="card-name">Fluxos</p>
-          <p class="card-desc">Processos e fluxogramas operacionais</p>
+          <p class="card-name">Fluxogramas RHC</p>
+          <p class="card-desc">Consulta rápida de processos e fluxogramas operacionais</p>
           <span class="card-tag tag-green">Geral</span>
-        </a>
-
-        <a class="card" href="https://renascer-plantao-547d4.web.app/" target="_blank">
-          <span class="arrow">↗</span>
-          <div class="card-icon" style="background:#fdedf3;">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M9 2.5C9 2.5 4 5.5 4 9.5C4 12.26 6.24 14.5 9 14.5C11.76 14.5 14 12.26 14 9.5C14 5.5 9 2.5 9 2.5Z" stroke="#d4517a" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M7 9.5h4M9 7.5v4" stroke="#d4517a" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <p class="card-name">Renascer Plantão</p>
-          <p class="card-desc">Sistema de gestão de plantões da enfermagem</p>
-          <span class="card-tag" style="background:#fdedf3; color:#b03060;">Enfermagem</span>
         </a>
       </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
       Renascer RHC &mdash; Sistemas internos centralizados
     </div>
