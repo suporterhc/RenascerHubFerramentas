@@ -49,6 +49,11 @@
       --tag-purple-text: #5b35b0;
       --stroke-purple: #7c5cbf;
 
+      --icon-teal-bg: #e3f6f5;
+      --tag-teal-bg: #d5f0ef;
+      --tag-teal-text: #0f6f6b;
+      --stroke-teal: #3ABEB9;
+
       /* UI Controls */
       --toggle-bg: #cde0d9;
       --toggle-knob: #ffffff;
@@ -86,6 +91,10 @@
       --icon-purple-bg: #1e1530;
       --tag-purple-bg: #271a40;
       --tag-purple-text: #b39ddf;
+
+      --icon-teal-bg: #0d2b2a;
+      --tag-teal-bg: #113835;
+      --tag-teal-text: #5fd6d0;
 
       /* UI Controls */
       --toggle-bg: #3a3a36;
@@ -241,6 +250,7 @@
     .icon-pink { background: var(--icon-pink-bg); }
     .icon-orange { background: var(--icon-orange-bg); }
     .icon-purple { background: var(--icon-purple-bg); }
+    .icon-teal { background: var(--icon-teal-bg); }
 
     .card-name {
       font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
@@ -260,6 +270,7 @@
     .tag-pink { background: var(--tag-pink-bg); color: var(--tag-pink-text); }
     .tag-orange { background: var(--tag-orange-bg); color: var(--tag-orange-text); }
     .tag-purple { background: var(--tag-purple-bg); color: var(--tag-purple-text); }
+    .tag-teal { background: var(--tag-teal-bg); color: var(--tag-teal-text); }
 
     .arrow {
       position: absolute; top: 16px; right: 16px; font-size: 14px;
@@ -462,6 +473,22 @@
           <p class="card-desc">Consulta de valores e tabela de preços UNIMED</p>
           <span class="card-tag tag-blue">Auditoria</span>
         </a>
+
+        <a class="card" href="https://renascer-demandas-auditoria.web.app/" target="_blank">
+          <span class="arrow">↗</span>
+          <div class="card-icon icon-blue">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <!-- Prancheta de demandas com check -->
+              <rect x="4" y="3" width="10" height="12" rx="1.2" stroke="var(--stroke-blue)" stroke-width="1.5"/>
+              <rect x="6.5" y="2" width="5" height="2.5" rx="0.8" stroke="var(--stroke-blue)" stroke-width="1.5"/>
+              <path d="M6.8 9.2l1.4 1.4 3-3" stroke="var(--stroke-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.5 12.8h5" stroke="var(--stroke-blue)" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="card-name">Renascer Demandas Auditoria</p>
+          <p class="card-desc">Gestão de demandas do setor de Auditoria</p>
+          <span class="card-tag tag-blue">Auditoria</span>
+        </a>
       </div>
     </div>
 
@@ -533,9 +560,35 @@
               <path d="M11 10v5" stroke="var(--stroke-purple)" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
           </div>
-          <p class="card-name">Renascer Demandas</p>
+          <p class="card-name">Renascer Demandas Logística</p>
           <p class="card-desc">Sistema de gestão de demandas e logística</p>
           <span class="card-tag tag-purple">Logística</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Seção RH -->
+    <div class="section">
+      <div class="section-label">
+        <span class="dot" style="background:var(--stroke-teal);"></span>
+        Recursos Humanos
+      </div>
+
+      <div class="cards">
+        <a class="card" href="https://renascer-demandas-rh.web.app/" target="_blank">
+          <span class="arrow">↗</span>
+          <div class="card-icon icon-teal">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <!-- Pessoas / RH -->
+              <circle cx="7" cy="6.5" r="2.5" stroke="var(--stroke-teal)" stroke-width="1.5"/>
+              <path d="M2.5 14.5c0-2.2 2-3.8 4.5-3.8s4.5 1.6 4.5 3.8" stroke="var(--stroke-teal)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M12 4.4a2.3 2.3 0 010 4.4" stroke="var(--stroke-teal)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M13 10.9c1.6.4 2.6 1.6 2.6 3.1" stroke="var(--stroke-teal)" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="card-name">Renascer Demandas RH</p>
+          <p class="card-desc">Gestão de demandas do setor de Recursos Humanos</p>
+          <span class="card-tag tag-teal">RH</span>
         </a>
       </div>
     </div>
